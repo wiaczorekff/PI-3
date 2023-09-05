@@ -1,0 +1,112 @@
+/* Importar a fonte ADLaM Display do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap');
+
+
+/* Reset de estilos padrão */
+body, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'ADLaM Display'
+}
+
+/* Estilizar o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Cor de fundo clara */
+    text-align: center;
+}
+
+/* Estilizar a barra superior de navegação */
+.barraSuperior {
+    background-color: #333; /* Cor de fundo escura para a barra de navegação */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Alinha itens ao espaço entre eles */
+    align-items: center; /* Alinha itens verticalmente ao centro */
+}
+
+.lista_menu {
+    display: flex;
+}
+
+.lista_menu li {
+    margin: 0 15px; /* Espaçamento entre os itens do menu */
+}
+
+.lista_menu li a {
+    color: #fff; /* Cor do texto do menu */
+    text-decoration: none;
+    transition: color 0.9s; /* Transição suave da cor do texto */
+}
+
+.lista_menu li a:hover {
+    color: rgba(91, 11, 156, 0.658); /* Cor do texto ao passar o mouse (hover) */
+}
+
+/* Estilizar os ícones no header */
+.icones-header {
+    display: flex;
+}
+
+.icones-header a {
+    margin-left: 10px; /* Espaçamento entre os ícones e o menu */
+}
+
+.icones-header img {
+    filter: brightness(80%); /* Tornar as imagens dos ícones mais claras */
+    border-radius: 50%; /* Deixa as imagens dos ícones arredondadas */
+    transition: filter 0.3s, transform 0.3s; /* Transições suaves para brilho e escala */
+}
+
+.icones-header img:hover {
+    filter: brightness(100%); /* Retorna ao brilho normal ao passar o mouse */
+    transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+}
+/* Estilizar as imagens das categorias */
+.produto-categories {
+    display: flex;
+    justify-content: space-between; /* Espaçamento entre as imagens */
+    flex-wrap: wrap; /* Permite que as imagens quebrem para a próxima linha em telas menores */
+}
+
+.produto-categories a {
+    flex: 1; /* Faz as imagens crescerem e ocuparem o espaço disponível */
+    max-width: 200px; /* Tamanho máximo das imagens */
+    height: auto; /* Mantém a proporção da imagem */
+    overflow: hidden; /* Oculta partes das imagens que excedem as dimensões */
+    border-radius: 10px; /* Borda arredondada */
+    transition: transform 0.2s, box-shadow 0.2s; /* Transições suaves para hover */
+    margin: 10px; /* Espaçamento ao redor das imagens */
+    position: relative; /* Para alinhar o texto centralizado */
+}
+
+.produto-categories a img {
+    width: 100%;
+    height: auto;
+    display: block; /* Remove espaços em branco extras abaixo das imagens */
+}
+
+.produto-categories a:hover {
+    transform: scale(1.05); /* Efeito de escala ao passar o mouse */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra suave ao passar o mouse */
+}
+
+/* Centralizar texto dentro das imagens */
+.produto-categories a::after {
+    content: attr(alt);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); /* Cor de fundo do texto */
+    color: #fff; /* Cor do texto */
+    padding: 5px 10px; /* Espaçamento interno do texto */
+    border-radius: 5px; /* Borda arredondada para o texto */
+    opacity: 0; /* Texto inicialmente invisível */
+    transition: opacity 0.2s; /* Transição suave de opacidade */
+}
+
+.produto-categories a:hover::after {
+    opacity: 1; /* Torna o texto visível ao passar o mouse */
+}
