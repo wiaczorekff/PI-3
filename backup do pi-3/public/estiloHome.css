@@ -4,3 +4,31 @@ body {
     background-attachment: fixed;
 }
 
+svg{
+    color: aliceblue;
+}
+
+.textoCrs{
+    color: rgba(173, 8, 8, 0.76);
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 25px;
+    text-shadow: 2px 2px black;
+    
+}
+
+.tituloCrs{
+    color: white;
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 35px;
+    text-shadow: 2px 2px rgba(173, 8, 8, 0.76);
+}
+
+.nav-item{
+    font-family: 'Sedgwick Ave Display', cursive;
+    letter-spacing: 5px;
+}
+
+.icones{
+   margin-left: 100px;
+    
+}
