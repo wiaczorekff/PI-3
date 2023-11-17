@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             return redirect("/");
         }
         else{
-            return redirect("/login")->with(['error' => 'a senha está errada']);
+            return redirect("/home")->with(['error' => 'a senha está errada']);
         }
 
         

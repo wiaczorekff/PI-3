@@ -1,11 +1,12 @@
 body {
-    background-image: linear-gradient(-220deg, red, black);
+    background-image: linear-gradient(-220deg, rgb(204, 192, 192), black);
     background-size: cover;
     background-attachment: fixed;
 }
 
 svg{
     color: aliceblue;
+    
 }
 
 .textoCrs{
@@ -35,6 +36,11 @@ svg{
 
 .carousel-inner{
     padding-bottom: 30px;
+    
+}
+
+.card-body{
+    background-image: linear-gradient(-220deg, rgba(81, 81, 83, 0.747), rgba(141, 13, 13, 0.726));
 }
 
 .card{
@@ -42,5 +48,40 @@ svg{
     width: 65%;
 }
 
+.card-title{
+    color: rgba(252, 252, 252, 0.87);
+    background-color: rgba(119, 110, 108, 0.151);
+    margin-bottom: 10px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    letter-spacing: 2px;
+}
 
+.card-text{
+    font-size: 18px;
+    
+    
+}
+
+.btn-preco {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.btn-preco svg {
+    margin-left: 10%;
+}
+
+.card-text {
+   padding-bottom: 25%; 
+}
+
+.btn-voltar-ao-topo {
+    background-color: #007bff; 
+    color: #fff; 
+    border-radius: 50%; 
+    padding: 10px; 
+    position: relative;
+    left: 50%;
+}
 
