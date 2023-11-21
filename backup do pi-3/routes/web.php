@@ -8,12 +8,9 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\CartController;
 
-
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,11 +26,10 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/home' , [telaPrincipalController::class,'index']);
-Route::get('/produto/{produto}', [telaPrincipalController::class, 'show']);
-Route::get('/categoria/{Categoria}',[CategoriaController::class, 'show']);
+Route::get('/home', [telaPrincipalController::class,'index']);
 Route::get('/produto/{produto}', [ProdutoController::class, 'show'])->name('showProduct');
+Route::get('/categoria/{Categoria}', [CategoriaController::class, 'show']);
 Route::post('/cart/{produto}', [CartController::class, 'post'])->name('cart.post');
-
-
-
+Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+Route::get('/cart', [CartController::class, 'show'])->name('cart');
+Route::get('/cart/{produto_id}', [CartController::class, 'showProduct'])->name('cart.product');
