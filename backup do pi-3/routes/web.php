@@ -7,6 +7,8 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +35,9 @@ Route::post('/cart/{produto}', [CartController::class, 'post'])->name('cart.post
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::get('/cart', [CartController::class, 'show'])->name('cart');
 Route::get('/cart/{produto_id}', [CartController::class, 'showProduct'])->name('cart.product');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout.show');
+Route::put('/cart/{produto_id}/update', [CartController::class, 'update'])->name('cart.update');
+Route::put('/cart/{produto_id}', [CartController::class, 'update'])->name('cart.update');
+
+

@@ -12,7 +12,7 @@ class Cart extends Model
     protected $table = 'CARRINHO_ITEM'; // ou 'CARRINHO_ITEM' se necessário
     protected $primaryKey = 'USUARIO_ID'; // ou o nome correto da chave primária
     protected $fillable = ['USUARIO_ID', 'PRODUTO_ID', 'ITEM_QTD'];
-    public $timestamps = false; // Adicione esta linha
+    public $timestamps = false; 
 
     public function product()
 {

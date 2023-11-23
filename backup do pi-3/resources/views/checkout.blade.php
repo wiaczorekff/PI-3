@@ -11,16 +11,17 @@
     <main>
         <h2>Checkout</h2>
 
-        @if ($cartItems->isEmpty())
+        @if ($itensAgrupados->isEmpty())
             <p>Seu carrinho está vazio.</p>
         @else
-            @foreach ($cartItems as $cartItem)
+            @foreach ($itensAgrupados as $produtoId => $itens)
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{ $cartItem->product->PRODUTO_NOME }}</h4>
+                        <h4 class="card-title">{{ $itens->first()->product->PRODUTO_NOME }}</h4>
                         <p class="card-text">
-                            Preço: R$ {{ $cartItem->product->PRODUTO_PRECO }}<br>
-                            Quantidade: {{ $cartItem->QTD_ITEM }}
+                            Quantidade total: {{ $itens->sum('QTD_ITEM') }}<br>
+                            Preço unitário: R$ {{ $itens->first()->product->PRODUTO_PRECO }}<br>
+                            Valor total: R$ {{ $itens->first()->product->PRODUTO_PRECO * $itens->sum('QTD_ITEM') }}
                         </p>
                     </div>
                 </div>

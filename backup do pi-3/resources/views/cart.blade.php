@@ -18,10 +18,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Carrinho</a>
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 <a class="nav-link" href="#">Pedidos</a>
-                <a class="nav-link disabled" aria-disabled="true">cadastre-se</a>
+                <a class="nav-link disabled" aria-disabled="true">carrinho</a>
             </div>
         </div>
     </div>
@@ -31,37 +30,62 @@
     <div class="row">
         @foreach ($carrinhoItens->groupBy('PRODUTO_ID') as $produtoId => $itens)
             @php $item = $itens->first(); @endphp
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="{{ $item->product->ProdutoImagens->first()->IMAGEM_URL ?? '' }}"
-                        class="card-img-top" alt="{{ $item->product->PRODUTO_NOME }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $item->product->PRODUTO_NOME }}</h5>
-                        <p class="card-text">Preço: R$ {{ $item->product->PRODUTO_PRECO }}</p>
-                        <p class="card-text">Preço Total: R$ <span class="preco-total">{{ $item->product->PRODUTO_PRECO * $itens->sum('ITEM_QTD') }}</span></p>
-                        <form action="{{ route('cart') }}" method="POST" class="form-quantidade">
-                            @csrf
-                            <div class="form-group">
-                                <label for="quantidade">Quantidade:</label>
-                                <input type="number" name="quantidade" value="{{ $itens->sum('ITEM_QTD') }}" class="form-control quantidade" min="1">
+            @if($itens->sum('ITEM_QTD') > 0)
+                <div class="col-md-4 mb-4">
+                    @if(session('success') && session('removed_product_id') == $produtoId)
+                    @else
+                        <div class="card">
+                            <img src="{{ $item->product->ProdutoImagens->first()->IMAGEM_URL ?? '' }}"
+                                class="card-img-top" alt="{{ $item->product->PRODUTO_NOME }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $item->product->PRODUTO_NOME }}</h5>
+                                <p class="card-text">Preço: R$ {{ $item->product->PRODUTO_PRECO }}</p>
+                                <p class="card-text">Preço Total: R$ <span class="preco-total">{{ $item->product->PRODUTO_PRECO * $itens->sum('ITEM_QTD') }}</span></p>
+                                <form action="{{ route('cart.update', $item->product->PRODUTO_ID) }}" method="POST" class="form-quantidade">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group">
+                                        <label for="quantidade">Quantidade:</label>
+                                        <input type="number" name="quantidade" value="{{ $itens->sum('ITEM_QTD') }}" class="form-control quantidade" min="1">
+                                    </div>
+                                    <button type="submit" name="atualizar" class="btn btn-primary">Atualizar</button>
+                                </form>
+                                <form action="{{ route('cart.update', $item->product->PRODUTO_ID) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                        <button type="submit" name="zerar" class="btn btn-danger">Zerar</button>
+                                </form>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    @endif
                 </div>
-            </div>
+            @endif
         @endforeach
     </div>
+</div>
+<div class="text-center mt-3">
+    <a href="{{ route('checkout.show') }}" class="btn btn-primary">CHECKOUT</a>
 </div>
 
 <script>
     // Adiciona um ouvinte de evento para atualizar o preço total ao alterar a quantidade
     $('.form-quantidade .quantidade').on('input', function() {
+        // Obter o valor da quantidade do input
+        var quantidadeAtualizada = parseInt($(this).val());
+
+        // Atualiza o preço total na tela
         var precoUnitario = parseFloat($(this).closest('.card').find('.card-text:first').text().replace('Preço: R$ ', ''));
-        var quantidade = parseInt($(this).val());
-        var precoTotal = precoUnitario * quantidade;
+        var precoTotal = precoUnitario * quantidadeAtualizada;
+        $(this).closest('.card').find('.preco-total').text(precoTotal.toFixed(2));
+    });
+
+    // Defina o valor inicial do input para a quantidade específica do produto
+    $('.form-quantidade .quantidade').each(function() {
+        var quantidadeInicial = parseInt($(this).val());
+        var precoUnitario = parseFloat($(this).closest('.card').find('.card-text:first').text().replace('Preço: R$ ', ''));
+        var precoTotal = precoUnitario * quantidadeInicial;
         $(this).closest('.card').find('.preco-total').text(precoTotal.toFixed(2));
     });
 </script>
-
 </body>
 </html>
