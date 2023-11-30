@@ -9,10 +9,15 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $table = 'CARRINHO_ITEM'; // ou 'CARRINHO_ITEM' se necessário
-    protected $primaryKey = 'USUARIO_ID'; // ou o nome correto da chave primária
+    
+    protected $table = 'CARRINHO_ITEM'; 
     protected $fillable = ['USUARIO_ID', 'PRODUTO_ID', 'ITEM_QTD'];
     public $timestamps = false; 
+    
+    protected function setKeysForSaveQuery($query){
+        return $query->where('USUARIO_ID', $this->getAttribute('USUARIO_ID'))
+                     ->where('PRODUTO_ID', $this->getAttribute('PRODUTO_ID'));
+    }
 
     public function product()
 {
@@ -23,5 +28,7 @@ class Cart extends Model
 {
     return $this->hasMany(Cart::class, 'PRODUTO_ID', 'PRODUTO_ID');
 }
+
+
 }
 

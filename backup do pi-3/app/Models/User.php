@@ -12,11 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    
     protected $table = 'USUARIO';
     public $timestamps = false;
     protected $primaryKey = "USUARIO_ID";
-    
+
     protected $fillable = [
         'USUARIO_NOME',
         'USUARIO_EMAIL',
@@ -24,11 +23,13 @@ class User extends Authenticatable
         'USUARIO_CPF',
     ];
 
-    
     protected $hidden = [
         'USUARIO_SENHA',
         'remember_token',
     ];
 
-    
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class, 'USUARIO_ID', 'USUARIO_ID');
+    }
 }

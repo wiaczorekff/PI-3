@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
         $usuario = User::where('USUARIO_EMAIL', $request->USUARIO_EMAIL)->first();
         if (Hash::check($request->USUARIO_SENHA, $usuario->USUARIO_SENHA)){
             Auth::login($usuario); 
-            return redirect("/");
+            return redirect("/home");
         }
         else{
             return redirect("/home")->with(['error' => 'a senha está errada']);
