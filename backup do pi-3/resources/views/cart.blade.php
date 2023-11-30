@@ -8,10 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Carrinho</title>
+    
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="logoCharlie">
+        <img src="{!! asset('img/charlie-logooo.png')!!}" alt="logo-charlie">
+    </div>
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,46 +29,46 @@
         </div>
     </div>
 </nav>
-
 <div class="container mt-5">
     <div class="row">
         @foreach ($carrinhoItens->groupBy('PRODUTO_ID') as $produtoId => $itens)
             @php $item = $itens->first(); @endphp
             @if($itens->sum('ITEM_QTD') > 0)
-                <div class="col-md-4 mb-4">
-                    @if(session('success') && session('removed_product_id') == $produtoId)
-                    @else
-                        <div class="card">
-                            <img src="{{ $item->product->ProdutoImagens->first()->IMAGEM_URL ?? '' }}"
-                                class="card-img-top" alt="{{ $item->product->PRODUTO_NOME }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $item->product->PRODUTO_NOME }}</h5>
-                                <p class="card-text">Preço: R$ {{ $item->product->PRODUTO_PRECO }}</p>
-                                <p class="card-text">Preço Total: R$ <span class="preco-total">{{ $item->product->PRODUTO_PRECO * $itens->sum('ITEM_QTD') }}</span></p>
-                                <form action="{{ route('cart.update', $item->product->PRODUTO_ID) }}" method="POST" class="form-quantidade">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        <label for="quantidade">Quantidade:</label>
-                                        <input type="number" name="quantidade" value="{{ $itens->sum('ITEM_QTD') }}" class="form-control quantidade" min="1">
-                                    </div>
-                                    <button type="submit" name="atualizar" class="btn btn-primary">Atualizar</button>
-                                </form>
-                                <form action="{{ route('cart.update', $item->product->PRODUTO_ID) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
+                <div class="col-md-12 mb-4">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ $item->product->ProdutoImagens->first()->IMAGEM_URL ?? '' }}" class="img-fluid rounded-start" alt="{{ $item->product->PRODUTO_NOME }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->product->PRODUTO_NOME }}</h5>
+                                    <p class="card-text">Preço: R$ {{ $item->product->PRODUTO_PRECO }}</p>
+                                    <p class="card-text">Preço Total: R$ <span class="preco-total">{{ $item->product->PRODUTO_PRECO * $itens->sum('ITEM_QTD') }}</span></p>
+                                    <form action="{{ route('cart.update', $item->product->PRODUTO_ID) }}" method="POST" class="form-quantidade">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <label for="quantidade">Quantidade:</label>
+                                            <input type="number" name="quantidade" value="{{ $itens->sum('ITEM_QTD') }}" class="form-control quantidade" min="1">
+                                        </div>
+                                        <button type="submit" name="atualizar" class="btn btn-primary">Atualizar</button>
                                         <button type="submit" name="zerar" class="btn btn-danger">Zerar</button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    @endif
+                    </div>
                 </div>
             @endif
         @endforeach
     </div>
 </div>
 <div class="text-center mt-3">
-    <a href="{{ route('checkout.show') }}" class="btn btn-primary">CHECKOUT</a>
+    <form action="{{ route('cart.finalizar-compra') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-primary">FINALIZAR COMPRA</button>
+    </form>
 </div>
 
 <script>

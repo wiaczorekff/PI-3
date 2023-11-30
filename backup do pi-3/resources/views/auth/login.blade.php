@@ -22,10 +22,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Carrinho</a>
-                <a class="nav-link" href="#">Pedidos</a>
-                <a class="nav-link disabled" aria-disabled="true">login</a>
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                <a class="nav-link disabled" aria-disabled="true">Login do usuário</a>
             </div>
         </div>
     </div>
@@ -46,6 +44,5 @@
         </div>
         <button type="submit" class="btn-primary">Logar</button>
 </form>
-
 </body>
 </html> 

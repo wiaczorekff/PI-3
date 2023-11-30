@@ -24,6 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/usuario/editar', [UsuarioController::class, 'edit'])->name('usuario.edit');
+    Route::post('/usuario/atualizar', [UsuarioController::class, 'update'])->name('usuario.update');
+    Route::get('/usuario/editar', [UsuarioController::class, 'edit'])->name('usuario.edit');
+    Route::post('/cart/finalizar-compra', [CartController::class, 'finalizarCompra'])->name('cart.finalizar-compra');
+
 });
 
 require __DIR__.'/auth.php';
@@ -39,5 +44,7 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout.show');
 Route::put('/cart/{produto_id}/update', [CartController::class, 'update'])->name('cart.update');
 Route::put('/cart/{produto_id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/usuario/adicionar-endereco', [UsuarioController::class, 'adicionarEndereco'])->name('usuario.adicionarEndereco');
+Route::post('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
 
 
